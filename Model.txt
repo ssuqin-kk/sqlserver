@@ -1,0 +1,86 @@
+﻿#pragma once 
+#include<string>
+#include<stdio.h>
+#include<iostream>
+#include "BaseDAL.hpp"
+
+using namespace std;
+
+class @tablename {
+public:
+@declare
+
+	@tablename() {
+	}
+
+	@tablename(const @tablename& model)
+	{
+@initial
+	}
+
+	// assignment operator
+	@tablename& operator=(const @tablename& model)
+	{
+@equal
+		return *this;
+	}
+};
+
+// redefined operator>> for reading SchoolBusConfigSettingHistory& from otl_stream
+otl_stream& operator>>(otl_stream& s, @tablename& model) {
+@right
+	return s;
+}
+
+otl_stream& operator<<(otl_stream& s, const @tablename& model) {
+@left
+	return s;
+}
+
+template <typename T>
+class @tablenameDAL :public BaseDAL<T> {
+private:
+	const string TableName = "@daltblname";
+
+private:
+	@tablenameDAL() {}
+	@tablenameDAL(const @tablenameDAL&) {}
+	@tablenameDAL& operator=(const @tablenameDAL&) {}
+
+public:
+
+	static @tablenameDAL GetInstance() {
+		static @tablenameDAL instance;
+		return instance;
+	}
+
+	void GetModel(T& model) {
+		BaseDAL::GetModel(TableName, model);
+	}
+
+	void GetModelList(vector<T>& models) {
+		BaseDAL::GetModelList(TableName, models);
+	}
+
+	void GetModelList(SqlWhere& sqlWhere, vector<T>& models) {
+		BaseDAL::GetModelList(TableName, sqlWhere, models);
+	}
+
+	void Add(T& model) {
+		string sql = "@add";
+		BaseDAL::Add(sql, model);
+	}
+
+	void DeleteSingle(int id) {
+		BaseDAL::DeleteSingle(TableName, id);
+	}
+
+	void Delete(SqlWhere& sqlWhere) {
+		BaseDAL::Delete(TableName, sqlWhere);
+	}
+
+	void UpdateSingle(T& model) {
+		string sql = "@update";
+		BaseDAL::UpdateSingle(sql, model);
+	}
+};
